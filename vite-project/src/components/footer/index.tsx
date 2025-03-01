@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 const FooterWrapper = styled.footer`
-    position: relative; /* Add this to contain absolute children */
+    position: relative;
     background-color: black;
     width: 100%;
     padding: 80px 0 20px 0;
@@ -109,7 +109,6 @@ const Footer: FC = () => {
     return (
         <FooterWrapper>
             <FooterContainer>
-                {/* Left Side (Text + Image) */}
                 <TextImageWrapper>
                     <Heading>Have something in mind?</Heading>
                     <ImageTextContainer>
@@ -118,11 +117,9 @@ const Footer: FC = () => {
                     </ImageTextContainer>
                 </TextImageWrapper>
 
-                {/* Right Side (Button) */}
                 <GetInTouchButton>Get in Touch</GetInTouchButton>
             </FooterContainer>
 
-            {/* Footer Bottom Section */}
             <FooterBottomContainer>
                 <FooterBottomText>Build with 💖 by Brightscout & Ayush</FooterBottomText>
 
