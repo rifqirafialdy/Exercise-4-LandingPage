@@ -5,18 +5,22 @@ const FooterWrapper = styled.footer`
     position: relative;
     background-color: black;
     width: 100%;
-    padding: 80px 0 20px 0;
+    padding-top: 80px;
+    padding-left: 80px;
+    padding-right: 88px;
+    padding-bottom: 32px;
     font-family: "Neue Montreal", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
+    gap: 50px;
+    box-sizing: border-box;
 `;
 
 const FooterContainer = styled.div`
     max-width: 1200px;
     width: 100%;
-    padding: 0 88px;
     display: flex;
     justify-content: space-between;
     align-items: center;
