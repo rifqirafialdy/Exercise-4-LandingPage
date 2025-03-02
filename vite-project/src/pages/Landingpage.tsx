@@ -29,13 +29,13 @@ const ContentSection = styled.section`
     padding-left: 80px;
     padding-right: 88px;
     display: flex;
-    align-items: baseline; /* Aligns text at the top */
+    align-items: baseline; 
     justify-content: space-between;
 `;
 
 const TitleWrapper = styled.div`
-    width: 30%; /* Adjust width to ensure proper spacing */
-    padding: 20px; /* Adds padding so text doesn't touch the edges */
+    width: 30%; 
+    padding: 20px; 
 `;
 
 const Title = styled.h1`
@@ -49,7 +49,7 @@ letter-spacing: 0%;
 `;
 
 const ContentWrapper = styled.div`
-    width: 65%; /* Adjust width so it takes more space */
+    width: 65%; 
     padding: 20px;
 `;
 

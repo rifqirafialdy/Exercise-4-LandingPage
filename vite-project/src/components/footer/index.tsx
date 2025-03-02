@@ -5,6 +5,7 @@ const FooterWrapper = styled.footer`
     position: relative;
     background-color: black;
     width: 100%;
+    margin-top: 20px;
     padding-top: 80px;
     padding-left: 80px;
     padding-right: 88px;
@@ -86,11 +87,10 @@ letter-spacing: 0%;
 
 `
 
-/* Social Links */
 const SocialLinksOpt = styled.ul`
     position: absolute;
-    bottom: 20px; /* Adjusted to fit correctly */
-    right: 88px; /* Align to the right side */
+    bottom: 20px; 
+    right: 88px; 
     display: flex;
     gap: 15px;
     list-style: none;
