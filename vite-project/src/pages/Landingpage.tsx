@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import Hero from "../components/hero";
 import MenuButton from "../components/menu/MenuButton";
 import styled from "styled-components";
@@ -15,6 +15,7 @@ const PageWrapper = styled.div`
 
 const HeroWrapper = styled.div`
     position: relative;
+    height: 100vh; 
 `;
 
 const MenuButtonWrapper = styled.div`
@@ -24,46 +25,72 @@ const MenuButtonWrapper = styled.div`
     transform: translateY(-50%);
 `;
 
+
+const MenuContentButtonWrapper = styled.div<{ isVisible: boolean }>`
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 1000;
+    display: ${({ isVisible }) => (isVisible ? "block" : "none")}; 
+`;
+
+const MenuContentButton = styled.img`
+height: 70px;
+    width: 70px;
+    cursor: pointer;
+`;
+
 const ContentSection = styled.section`
     padding-top: 160px;
     padding-left: 80px;
     padding-right: 88px;
     display: flex;
-    align-items: baseline; 
+    align-items: baseline;
     justify-content: space-between;
 `;
 
 const TitleWrapper = styled.div`
-    width: 30%; 
-    padding: 20px; 
+    width: 30%;
+    padding: 20px;
 `;
 
 const Title = styled.h1`
     font-family: 'Neue Montreal', sans-serif;
     font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
     color: black;
-font-weight: 500;
-line-height: 48px;
-letter-spacing: 0%;
-
 `;
 
 const ContentWrapper = styled.div`
-    width: 65%; 
+    width: 65%;
     padding: 20px;
 `;
 
 const Text = styled.p`
     font-family: 'Neue Montreal', sans-serif;
     font-weight: 400;
-font-size: 27px;
-line-height: 37.8px;
-letter-spacing: 0%;
-
+    font-size: 27px;
+    line-height: 37.8px;
 `;
 
 const LandingPage: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showHamburger, setShowHamburger] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const heroHeight = window.innerHeight; 
+            if (window.scrollY > heroHeight) {
+                setShowHamburger(true);
+            } else {
+                setShowHamburger(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <PageWrapper>
@@ -73,6 +100,15 @@ const LandingPage: FC = () => {
                     <MenuButton onClick={() => setIsMenuOpen(true)} />
                 </MenuButtonWrapper>
             </HeroWrapper>
+
+            <MenuContentButtonWrapper isVisible={showHamburger}>
+                <MenuContentButton 
+                    src="/hamburger.png" 
+                    alt="Menu" 
+                    onClick={() => setIsMenuOpen(true)}
+                />
+            </MenuContentButtonWrapper>
+
             <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
             <ContentSection>
@@ -81,18 +117,20 @@ const LandingPage: FC = () => {
                 </TitleWrapper>
                 <ContentWrapper>
                     <Text>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Text>
                 </ContentWrapper>
             </ContentSection>
+
             <ContentSection>
                 <TitleWrapper>
                     <Title>Recent Work</Title>
                 </TitleWrapper>
                 <ContentWrapper>
-                <Portofolio/>
+                    <Portofolio/>
                 </ContentWrapper>
             </ContentSection>
+
             <ContentSection>
                 <TitleWrapper>
                     <Title>Testimonials</Title>
@@ -101,6 +139,7 @@ const LandingPage: FC = () => {
                     <Testimonial/>
                 </ContentWrapper>
             </ContentSection>
+
             <Footer/>
         </PageWrapper>
     );
