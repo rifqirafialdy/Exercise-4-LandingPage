@@ -3,11 +3,14 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 3000
-  },
   build: {
     outDir: "dist"
   },
-  base: "/"
+  server: {
+    port: 3000
+  },
+  base: "/",
+  define: {
+    "process.env": {} // Fixes potential env issues
+  }
 });
