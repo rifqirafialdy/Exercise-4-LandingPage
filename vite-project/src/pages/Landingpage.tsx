@@ -6,6 +6,7 @@ import Menu from "../components/menu";
 import Portofolio from "../components/portofolio";
 import Testimonial from "../components/testimonial";
 import Footer from "../components/footer";
+import Gallery from "../components/gallery";
 
 const PageWrapper = styled.div`
     min-height: 100vh;
@@ -130,7 +131,7 @@ const LandingPage: FC = () => {
                     <Portofolio/>
                 </ContentWrapper>
             </ContentSection>
-
+<Gallery/>
             <ContentSection>
                 <TitleWrapper>
                     <Title>Testimonials</Title>
