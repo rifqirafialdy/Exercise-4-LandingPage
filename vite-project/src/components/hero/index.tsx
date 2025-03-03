@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "../header";
 
 const HeroContainer = styled.section`
@@ -8,7 +8,8 @@ const HeroContainer = styled.section`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative; /* Needed for absolute positioning */
+    position: relative;
+    overflow: hidden;
 `;
 
 const ImageContainer = styled.div`
@@ -17,14 +18,34 @@ const ImageContainer = styled.div`
     align-items: center;
     overflow: hidden;
     flex-grow: 1;
+    position: relative;
 `;
 
 const HeroImage = styled.img`
     max-width: 100%;
-    object-fit: contain; 
+    object-fit: contain;
 `;
 
+const scrollText = keyframes`
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+`;
 
+const OverlayText = styled.div`
+    position: absolute;
+    top: 50%;
+    white-space: nowrap;
+    font-family: "Neue Montreal", sans-serif;
+    font-weight: 500;
+    font-size: 150.38px;
+    line-height: 180.45px;
+    color: white;
+    animation: ${scrollText} 10s linear infinite;
+`;
 
 const Hero: FC = () => {
     return (
@@ -32,6 +53,7 @@ const Hero: FC = () => {
             <Header />
             <ImageContainer>
                 <HeroImage src="/My project 1 (1).png" alt="Hero Image" />
+                <OverlayText>Webflow Developer - UI/UX Designer</OverlayText>
             </ImageContainer>
         </HeroContainer>
     );
