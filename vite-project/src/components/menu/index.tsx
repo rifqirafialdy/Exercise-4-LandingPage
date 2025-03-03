@@ -10,7 +10,7 @@ const Overlay = styled.div<{ isOpen: boolean }>`
     background: black;
     opacity: 50%;
     visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
-  
+  z-index: 999;
 
 `;
 

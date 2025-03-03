@@ -44,7 +44,7 @@ const OverlayText = styled.div`
     font-size: 150.38px;
     line-height: 180.45px;
     color: white;
-    animation: ${scrollText} 10s linear infinite;
+    animation: ${scrollText} 20s linear infinite;
 `;
 
 const Hero: FC = () => {
