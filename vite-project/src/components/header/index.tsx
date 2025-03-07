@@ -32,7 +32,7 @@ const Header: FC = () => {
             <img src="/Logo.png" alt="Website Logo" width="100" />
             <NavContainer>
                 <NavOption href="#">About</NavOption>
-                <NavOption href="#">Work</NavOption>
+                <NavOption href="/form">Form</NavOption>
                 <NavOption href="/contact">Contact</NavOption>
             </NavContainer>
         </HeaderContainer>

@@ -1,99 +1,56 @@
 import { FC } from "react";
-import styled from "styled-components";
-
-const Form: FC = () => {
-    const Title = styled.h1`
-        font-family: "Neue Montreal", sans-serif;
-        font-weight: 500;
-        font-size: 60px;
-        line-height: 72px;
-        letter-spacing: 0%;
-    `;
-
-    const Input = styled.input`
-    margin: 0;
-          width: 100%;
-        border: none;
-        border-bottom: 1px solid black
-        ;
-        font-family: "Neue Montreal", sans-serif;
-font-weight: 400;
-font-size: 27px;
-line-height: 37.8px;
-letter-spacing: 0%;
-        background: transparent;
-        outline: none;
-        height: 100px;
-        resize: none;
-    `;
-
-    const TextArea = styled.textarea`
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid black
-        ;
-        font-family: "Neue Montreal", sans-serif;
-font-weight: 400;
-font-size: 27px;
-line-height: 37.8px;
-letter-spacing: 0%;
-        background: transparent;
-        outline: none;
-        height: 100px;
-        resize: none;
-    `;
-
-    const FormContainer = styled.div`
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-    `;
-    const InputTitle =styled.p`
-        font-family: "Neue Montreal", sans-serif;
-        font-weight: 400;
-font-size: 18px;
-line-height: 28.8px;
-letter-spacing: 0%;
-margin: 0;
-
-    `
-    const GetInTouchButton = styled.button`
-    background-color: black;
-    font-family: "Neue Montreal", sans-serif;
-    color: #F4F7FA;
-    font-size: 18px;
-    line-height: 21.6px;
-    padding: 24px 48px;
-    margin-top: 20px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 176px;
-    width: fit-content; /* Prevent full width */
-    align-self: self-start; /* Center the button */
-
-    &:hover {
-        background-color: white;
-        color: black;
-    }
-`;
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import FormField from "./FormField";
+import useContacts from "../../hooks/useContactForm";
+const validationSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email format").required("Email is required"),
+  subject: Yup.string().required("Subject is required"),
+  message: Yup.string()
+  .min(10, "Message must be at least 10 characters")
+  .required("Message is required"),});
 
 
-    return (
-        <FormContainer>
-            <Title>Let’s build something cool together</Title>
-            <InputTitle>Name</InputTitle>
-            <Input type="text" placeholder="James Robert" />
-            <InputTitle>Email</InputTitle>
-            <Input type="email" placeholder="ayush.barnwal@brightscout.com" />
-            <InputTitle>Subject</InputTitle>
-            <Input type="text" placeholder="For web design work Enquire" />
-            <InputTitle>Message</InputTitle>
-            <TextArea placeholder="Type your Message"></TextArea>
-            <GetInTouchButton>Submit</GetInTouchButton>
-        </FormContainer>
-    );
+const ContactForm: FC = () => {
+  
+  const { submitContactForm } = useContacts();
+  return (
+    <Formik
+    initialValues={{ name: "", email: "", subject: "", message: "" }}
+    validationSchema={validationSchema}
+    validateOnBlur={true}
+    validateOnChange={true}
+    onSubmit={async (values, { resetForm }) => {
+      try {
+        await submitContactForm(values);
+        alert("Form submitted successfully!");
+        resetForm();
+      } catch (error) {
+        console.error("Submission error:", error);
+      }
+    }}
+  >
+      {({ isSubmitting }) => (
+        <div className="max-w-lg mx-auto flex flex-col space-y-6 p-6">
+          <h1 className="text-4xl font-medium">Let’s build something cool together</h1>
+          <Form className="flex flex-col space-y-4">
+            <FormField label="Name" name="name" />
+            <FormField label="Email" name="email" type="email" />
+            <FormField label="Subject" name="subject" />
+            <FormField label="Message" name="message" as="textarea" />
+            <button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="bg-black text-white text-lg font-bold px-6 py-3 rounded-full w-fit mt-4 hover:bg-white hover:text-black border border-black transition"
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+          </Form>
+        </div>
+      )}
+    </Formik>
+  );
 };
 
-export default Form;
+export default ContactForm;
